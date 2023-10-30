@@ -1,0 +1,44 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body> 
+     {% block content %}
+       <a  class="flex py-3 px-4" href="{% url 'myapp:addproduct' %}"> 
+        <img class="w-20 h-20 m-6" src="{% static 'images/delete.png' %}" alt="">
+        <h1 class="text-3xl font-bold text-gray-600 py-7 px-3 m-3">Delete Product</h1>
+       </a>
+        <form class="bg-white rounded shadow-xl m-10 px-14 py-9 w-3/5" action="" method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            
+            <div class="mb-2">
+                <label class="text-2xl block text-gray-700 font-bold py-1" for="">Are you sure want to delete this Product?</label>
+                
+            </div>
+            <div class="text-lg font-bold text-gray-500">
+                {{product.name}}
+            </div>
+            <div>
+                <img class="w-72 h-72" src="{{product.image.url}}" alt="">
+            </div>
+            
+            
+           
+            
+            <div class="py-2 ">
+            <input class="btn bg-red-400 rounded text-white mb-2 px-5 py-2 hover:text-red-300" type="submit" name="Confirm" value="Delete"  id="">
+            <a class="button bg-green-400 rounded text-white mb-2 px-5 py-2 hover:text-green-700" href="{% url 'myapp:home' %}">Cancel </a>
+        </div>
+
+        </form>
+
+     {% endblock %}
+    
+</body>
+</html>

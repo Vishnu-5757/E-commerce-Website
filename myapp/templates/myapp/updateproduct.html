@@ -1,0 +1,46 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body> 
+     {% block content %}
+       <a  class="flex py-3 px-4" href="{% url 'myapp:addproduct' %}"> 
+        <img class="w-20 h-20 m-6" src="{% static 'images/Update.png' %}" alt="">
+        <h1 class="text-3xl font-bold text-gray-600 py-7 px-3 m-3">Update Product</h1>
+       </a>
+        <form class="bg-white rounded shadow-xl m-10 px-14 py-9 w-3/5" action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-2">
+                <label class="block text-gray-700 font-bold py-1" for="">Product Name</label>
+                <input class="shadow appearance-none border rounded py-1 px-3 text-gray-500" type="text" placeholder="Name" name="name" id="name" value="{{product.name}}"> 
+            </div>
+            <div class="py-3 mb-2">
+                <label class="block text-gray-700 font-bold py-1"  for="">Price</label>
+                <input class="shadow appearance-none border rounded py-1 px-3 text-gray-500" type="text" placeholder="Price" name="price" id="price" value="{{product.price}}">    
+            </div>
+            <div class="py-3 ">
+                <label class="block text-gray-700 font-bold py-1" for="">Description</label>
+                <input class="shadow appearance-none border rounded py-1 px-3 text-gray-500" type="text" placeholder="Desccription" name="desc" id="desc" value="{{product.desc}}">
+            </div>
+            
+           <div class="py-3 mb-2"> 
+            <img class="w-28 h-28 object-contain" src="{{product.image.url}}" alt="">
+            <label class="block text-gray-700 font-bold py-1" for="">Product Image</label>
+            <input  class="rounded py-1 text-gray-500" type="file" accept="image/*" placeholder="" name="upload" id="upload" value="{{product.image}}">
+           </div>
+            
+            <div class="py-2">
+            <input class="btn bg-green-400 rounded text-white mb-2 px-5 py-2 hover:text-green-700" type="submit" name="" value="Update Product"  id="">
+        </div>
+
+        </form>
+
+     {% endblock %}
+    
+</body>
+</html>

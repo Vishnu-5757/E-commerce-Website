@@ -1,0 +1,54 @@
+{% extends 'myapp/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+</head>
+<body>
+    {% block content %}
+    <div class="flex p-6 w-full h-200">
+        
+        <img class="w-1/2" src="{{product.image.url}}" alt="">
+    
+        <div class="py-7 text-xl">
+            <div class="text-gray-500">{{product.name}}</div>
+            <div class="font-bold text-md text-green-400 py-1">₹ {{product.price}}</div>
+            <div class="font-semibold text-md py-1">Posted by : <span class="text-indigo-400">{{product.seller}}</span></div>
+            <div class="font-semibold text-md py-1">Contact : <span class="">{{product.seller.profile.contact_number}}</span></div>
+            <!-- <div class="py-4">
+                <button class="bg-green-500 text-white py-1 px-2 rounded" id="checkout">Checkout</button>
+            </div> -->
+        </div>
+        <script src="https://js.stripe.com/v3/"></script>
+        <script type="text/javascript">
+
+            var stripe = Stripe('{{ stripe_publishable_key }}')
+            var checkoutButton = document.getElementById('checkout')
+            checkoutButton.addEventListener('click',function(){
+                fetch("{% url 'myapp:apicheckoutsession' id=product.id %}",{method:'POST',})
+                .then(function(response){
+                    return response.json()
+                })
+                .then(function(session){
+                    return stripe.redirectToCheckout({sessionId:session.sessionId})
+                })
+                .then(function(result){
+                    if(result.error){
+                        alert(result.error.message)
+                    }
+                })
+                .catch(function(error){
+                    console.error('Error',error)
+                })
+            })
+        </script>
+            
+       
+    </div>
+
+
+
+    {% endblock %}
+    
+</body>
+</html>
