@@ -1,0 +1,53 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <script src="{% static '/js/one.js' %}"></script>
+</head>
+<h1 class="text-2xl font-bold m-10">Register User</h1>
+
+<div class="container py-5">
+    
+<form class="w-2/5 bg-white shadow-md m-10 rounded px-10 mb-5 pb-8 " method="POST" id="forms">
+   {% csrf_token %}
+    <div class="mb-2">
+        <label class="block text-gray-500 font-bold text-sm " >Username</label>
+        <div id="username" class="shadow appereance-none border rounded py-2 px-5 text-gray-500 mr-10 leading-tight" >
+            {{form.username}}
+        </div>
+    </div>
+    <div class="mb-2">
+        <label class="block text-gray-500 font-bold text-sm" >Email</label>
+        <div class="shadow appereance-none border rounded py-2 px-5 text-gray-500 mr-10 leading-tight">
+            {{form.email}}
+        </div>
+    </div>
+    <div class="mb-2">
+        <label class="block text-gray-500 font-bold text-sm" >Phone</label>
+        <div class="shadow appereance-none border rounded py-2 px-5 text-gray-500 mr-10 leading-tight">
+            {{form.phone}}
+        </div>
+    </div>
+    <div class="mb-2">
+        <label class="block text-gray-500 font-bold text-sm" >Password</label>
+        <div class="shadow appereance-none border rounded py-2 px-5 text-gray-500 mr-10 leading-tight">
+            {{form.password1}}
+        </div>
+    </div>
+    <div class="mb-2">
+        <label class="block text-gray-500 font-bold text-sm" >Confirm Password</label>
+        <div class="shadow appereance-none border rounded py-2 px-5 text-gray-500 mr-10 leading-tight">
+            {{form.password2}}
+        </div>
+    </div>
+    <div class="px-32 m-6">
+    <button type="submit" class="bg-green-500 text-white px-5 py-2 rounded">Register</button>
+</div>
+</form>
+<div class=" m-2 px-8">
+    Already have an account? <a class="text-indigo-500" href="{% url 'users:login' %}"> Login</a>
+</div>
+
+</div>
+
+{% endblock %}
